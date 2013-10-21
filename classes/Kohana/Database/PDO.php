@@ -53,6 +53,11 @@ class Kohana_Database_PDO extends Database {
 		{
 			// Create a new PDO connection
 			$this->_connection = new PDO($dsn, $username, $password, $options);
+			if ( ! empty($this->_config['charset']))
+			{
+				// Charset is expected to set if it's in a config file.
+				$this->_connection->exec('SET NAMES '.$this->_config['charset']);
+			}
 		}
 		catch (PDOException $e)
 		{
